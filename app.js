@@ -1,5 +1,9 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.urlencoded({extended:true})); //setup body parser so we can use it
+app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
 
 // Temporary Array prior to adding in a DB
 var campgrounds = [
@@ -15,14 +19,25 @@ var campgrounds = [
   }
 ];
 
-app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
-
 app.get('/', function(req,res){
   res.render('landing');
 });
 
 app.get('/campgrounds', function(req,res){
   res.render('campgrounds', {campgrounds: campgrounds});
+});
+
+app.get('/campgrounds/new', function(req,res){
+  res.render('new.ejs');
+});
+
+app.post('/campgrounds', function(req,res){
+  // get data from form and add to campgrounds Array
+  var name = req.body.name;
+  var image = req.body.image;
+  campgrounds.push({ name:name, image:image});
+  // redirect back to campground page
+  res.redirect('/campgrounds');
 });
 
 app.listen(3000, function(){
