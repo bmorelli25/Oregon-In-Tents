@@ -7,16 +7,12 @@ app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsew
 
 // Temporary Array prior to adding in a DB
 var campgrounds = [
-  {
-    name: 'campsite 1',
-    image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-voyageurs-national-park-tent.jpg.rend.tccom.1280.960.jpeg'
-  },{
-    name: 'campsite 2',
-    image: 'http://cdn.grindtv.com/uploads/2015/02/shutterstock_242371765.jpg'
-  },{
-    name: 'campsite 3',
-    image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'
-  }
+  { name: 'campsite 1', image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-voyageurs-national-park-tent.jpg.rend.tccom.1280.960.jpeg'},
+  { name: 'campsite 2', image: 'http://cdn.grindtv.com/uploads/2015/02/shutterstock_242371765.jpg'},
+  { name: 'campsite 3', image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'},
+  { name: 'campsite 4', image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-voyageurs-national-park-tent.jpg.rend.tccom.1280.960.jpeg'},
+  { name: 'campsite 5', image: 'http://cdn.grindtv.com/uploads/2015/02/shutterstock_242371765.jpg'},
+  { name: 'campsite 6', image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'}
 ];
 
 app.get('/', function(req,res){
