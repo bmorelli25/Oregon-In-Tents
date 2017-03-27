@@ -1,32 +1,17 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    seedDB = require('./seeds');
 var app = express();
 
-mongoose.connect('mongodb://localhost/oregon_in_tents'); //create local DB
+seedDB();
+var Campground = require('./models/campground');
 
+mongoose.connect('mongodb://localhost/oregon_in_tents'); //create local DB
 app.use(bodyParser.urlencoded({extended:true})); //setup body parser so we can use it
 app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
 
-//Schema and Model setup
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-var Campground = mongoose.model('Campground', campgroundSchema);
 
-// Campground.create({
-//   name: 'campsite 3',
-//   image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg',
-//   description: 'A lovely campground atop a mountain in the Easter Gorge area.'
-// }, function(err,campground){
-//   if(err){
-//     console.log(err);
-//   } else {
-//     console.log(campground);
-//   }
-// });
 
 app.get('/', function(req,res){
   res.render('landing');
