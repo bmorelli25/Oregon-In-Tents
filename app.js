@@ -1,26 +1,44 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose');
 var app = express();
+
+mongoose.connect('mongodb://localhost/oregon_in_tents'); //create local DB
 
 app.use(bodyParser.urlencoded({extended:true})); //setup body parser so we can use it
 app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
 
-// Temporary Array prior to adding in a DB
-var campgrounds = [
-  { name: 'campsite 1', image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-voyageurs-national-park-tent.jpg.rend.tccom.1280.960.jpeg'},
-  { name: 'campsite 2', image: 'http://cdn.grindtv.com/uploads/2015/02/shutterstock_242371765.jpg'},
-  { name: 'campsite 3', image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'},
-  { name: 'campsite 4', image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-voyageurs-national-park-tent.jpg.rend.tccom.1280.960.jpeg'},
-  { name: 'campsite 5', image: 'http://cdn.grindtv.com/uploads/2015/02/shutterstock_242371765.jpg'},
-  { name: 'campsite 6', image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'}
-];
+//Schema and Model setup
+var campgroundSchema = new mongoose.Schema({
+  name: String,
+  image: String
+});
+var Campground = mongoose.model('Campground', campgroundSchema);
+
+// Campground.create({
+//   name: 'campsite 3',
+//   image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg'
+// }, function(err,campground){
+//   if(err){
+//     console.log(err);
+//   } else {
+//     console.log(campground);
+//   }
+// });
 
 app.get('/', function(req,res){
   res.render('landing');
 });
 
 app.get('/campgrounds', function(req,res){
-  res.render('campgrounds', {campgrounds: campgrounds});
+  //Get all campgrounds from the database
+  Campground.find({}, function(err,allCampgrounds){
+    if(err){
+      console.log(err);
+    } else {
+      res.render('campgrounds', {campgrounds: allCampgrounds});
+    }
+  });
 });
 
 app.get('/campgrounds/new', function(req,res){
@@ -29,11 +47,18 @@ app.get('/campgrounds/new', function(req,res){
 
 app.post('/campgrounds', function(req,res){
   // get data from form and add to campgrounds Array
-  var name = req.body.name;
-  var image = req.body.image;
-  campgrounds.push({ name:name, image:image});
-  // redirect back to campground page
-  res.redirect('/campgrounds');
+  var newCampground = {
+    name: req.body.name,
+    image: req.body.image
+  };
+  //Create a new Campground and save to DB
+  Campground.create(newCampground, function(err, newlyCreated){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect('/campgrounds'); // redirect back to campground page
+    }
+  });
 });
 
 app.listen(3000, function(){
