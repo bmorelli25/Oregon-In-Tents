@@ -55,7 +55,7 @@ app.post('/campgrounds', function(req,res){
 // SHOW ROUTE - SHOWS MORE INFO ABOUT ONE CAMPGROUND
 app.get('/campgrounds/:id', function(req,res){
   //find campground with provided ID and render show route for that campground
-  Campground.findById(req.params.id, function(err, foundCampground){
+  Campground.findById(req.params.id).populate('comments').exec(function(err, foundCampground){
     if(err){
       console.log(err);
     } else {

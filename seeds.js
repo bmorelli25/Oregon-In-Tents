@@ -6,15 +6,15 @@ var data = [
   {
     name: 'Rocky River',
     image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg',
-    descripton: 'blah blah blah blah blah'
+    description: 'blah blah blah blah blah'
   },{
     name: 'Warm Ocean',
     image: 'http://travelchannel.sndimg.com/content/dam/images/travel/fullrights/2016/01/14/national-park-camping/camping-glacier-national-park-camping.jpg.rend.tccom.1280.960.jpeg',
-    descripton: 'adf e fjaef jfa efo afe oef '
+    description: 'adf e fjaef jfa efo afe oef '
   },{
     name: 'Cold Stream',
     image: 'https://i.kinja-img.com/gawker-media/image/upload/s--ELrsBT8h--/c9pd8amxevnsn36ldwd5.jpg',
-    descripton: '1234 15 145 245 134 514 5'
+    description: '1234 15 145 245 134 514 5'
   }
 ];
 
