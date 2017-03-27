@@ -9,6 +9,7 @@ var Campground = require('./models/campground'),
 
 mongoose.connect('mongodb://localhost/oregon_in_tents'); //create local DB
 app.use(bodyParser.urlencoded({extended:true})); //setup body parser so we can use it
+app.use(express.static(__dirname + '/public')); //serves the public directory so we can access it
 app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
 seedDB(); //Seed the DB with test data
 
