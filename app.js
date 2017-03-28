@@ -20,7 +20,7 @@ app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsew
 
 // DATABASE CONFIGURATION
 mongoose.connect('mongodb://localhost/oregon_in_tents'); //create and/or set local DB
-seedDB(); //Seed the DB with test data
+// seedDB(); //Seed the DB with test data
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
