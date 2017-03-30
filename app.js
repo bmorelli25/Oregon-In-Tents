@@ -2,7 +2,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local');
+    LocalStrategy = require('passport-local'),
+    methodOverride = require('method-override');
 
 var Campground = require('./models/campground'),
     Comment = require('./models/comment'),
@@ -14,9 +15,11 @@ var commentRoutes = require('./routes/comments'),
     indexRoutes = require('./routes/index');
 
 var app = express();
+app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended:true})); //setup body parser so we can use it
 app.use(express.static(__dirname + '/public')); //serves the public directory so we can access it
 app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsewhere
+
 
 // DATABASE CONFIGURATION
 mongoose.connect('mongodb://localhost/oregon_in_tents'); //create and/or set local DB
