@@ -23,7 +23,9 @@ app.set('view engine', 'ejs'); //Prevents us from having to specify '.ejs' elsew
 app.use(flash());
 
 // DATABASE CONFIGURATION
-mongoose.connect('mongodb://localhost/oregon_in_tents'); //create and/or set local DB
+// mongoose.connect('mongodb://localhost/oregon_in_tents'); // LOCAL
+// mongoose.connect(mongodb://<dbuser>:<dbpassword>@ds147900.mlab.com:47900/oregon-in-tents'); // REMOTE
+mongoose.connect(process.env.DATABASE_URL); // REMOTE
 // seedDB(); //Seed the DB with test data
 
 // PASSPORT CONFIGURATION
@@ -51,6 +53,6 @@ app.use('/', indexRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 
-app.listen(3000, function(){
-  console.log('Oregon listening on PORT 3000');
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log('Oregon-In-Tents is listening...');
 });
